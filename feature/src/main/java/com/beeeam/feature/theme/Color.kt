@@ -1,4 +1,4 @@
-package com.beeeam.simplejoke.ui.theme
+package com.beeeam.feature.theme
 
 import androidx.compose.ui.graphics.Color
 

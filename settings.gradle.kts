@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Simple Joke"
 include(":app")
+include(":data")
+include(":domain")
+include(":feature")

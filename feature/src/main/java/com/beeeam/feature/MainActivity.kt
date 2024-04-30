@@ -1,4 +1,4 @@
-package com.beeeam.simplejoke
+package com.beeeam.feature
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
@@ -33,15 +32,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.beeeam.simplejoke.ui.theme.SimpleJokeTheme
-import com.beeeam.simplejoke.ui.theme.black
-import com.beeeam.simplejoke.ui.theme.mainColor
+import com.beeeam.feature.theme.black
+import com.beeeam.feature.theme.mainColor
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SimpleJokeTheme {
+            com.beeeam.feature.theme.SimpleJokeTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -144,7 +142,7 @@ fun JokeDropDownMenu(
 @Preview(showSystemUi = true)
 @Composable
 fun MainScreenPreview() {
-    SimpleJokeTheme {
+    com.beeeam.feature.theme.SimpleJokeTheme {
         MainScreen()
     }
 }
