@@ -1,14 +1,19 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+    id("dagger.hilt.android.plugin")
+
+    kotlin("android")
+    kotlin("kapt")
 }
+
 
 android {
     namespace = "com.beeeam.data"
-    compileSdk = 33
+    compileSdk = Configuration.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Configuration.MIN_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -33,11 +38,22 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(AndroidX.APP_COMPAT)
+    implementation(AndroidX.CORE_KTX)
+    implementation(Google.MATERIAL)
+    testImplementation(AndroidX.JUNIT)
+    androidTestImplementation(AndroidX.EXT_JUNIT)
+    androidTestImplementation(AndroidX.ESPRESSO_CORE)
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Google.HILT_ANDROID)
+    kapt(Google.HILT_ANDROID_COMPILER)
+
+    implementation(SquareUp.RETROFIT2)
+    implementation(SquareUp.RETROFIT2_CONVERTER_GSON)
+    implementation(SquareUp.OKHTTP3)
+    implementation(SquareUp.OKHTTP3_LOGGING)
+    implementation(SquareUp.OKHTTP3_BOM)
+
+    implementation(KotlinX.KOTLINX_COROUTINE)
 }

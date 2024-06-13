@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,9 +33,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.beeeam.feature.component.CategoryDropDown
 import com.beeeam.feature.theme.black
 import com.beeeam.feature.theme.mainColor
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    MainRoute()
                 }
             }
         }
@@ -52,9 +57,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen() {
+fun MainRoute(
+    viewModel: MainViewModel = hiltViewModel(),
+) {
+    LaunchedEffect(key1 = Unit) {
+        viewModel.loadCategory()
+    }
+
+    MainScreen(
+        onClickCategoryItem = viewModel::loadJoke
+    )
+}
+
+@Composable
+fun MainScreen(
+    onClickCategoryItem: (String) -> Unit
+) {
     var title by remember { mutableStateOf("Simple Joke!") }
-    val dropDownItemClick = { text: String -> title = text }
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
 
     Column(
@@ -78,71 +97,17 @@ fun MainScreen() {
             dropDownClick = {
                 isDropDownMenuExpanded = !isDropDownMenuExpanded
             },
-            dropDownItemClick = dropDownItemClick,
+            dropDownItemClick = onClickCategoryItem,
         )
     }
-}
-
-@Composable
-fun CategoryDropDown(
-    dropDownState: Boolean,
-    dropDownClick: () -> Unit,
-    dropDownItemClick: (String) -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .padding(32.dp)
-            .clickable { dropDownClick() },
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Image(
-            modifier = Modifier
-                .padding(8.dp)
-                .size(12.dp),
-            painter = painterResource(id = R.drawable.arrow_down),
-            contentDescription = ""
-        )
-        Text(
-            text = "Choose!",
-            color = mainColor,
-            fontWeight = FontWeight.Bold
-        )
-    }
-    DropdownMenu(
-        modifier = Modifier
-            .wrapContentSize()
-            .background(black),
-        expanded = dropDownState,
-        onDismissRequest = dropDownClick,
-        offset = DpOffset(150.dp, 0.dp)
-    ) {
-        JokeDropDownMenu("1", dropDownItemClick)
-        JokeDropDownMenu("2", dropDownItemClick)
-        JokeDropDownMenu("3", dropDownItemClick)
-    }
-}
-
-@Composable
-fun JokeDropDownMenu(
-    text: String,
-    dropDownItemClick: (String) -> Unit,
-) {
-    DropdownMenuItem(
-        text = {
-            Text(
-                color = mainColor,
-                text = text,
-                fontWeight = FontWeight.ExtraBold,
-            )
-        },
-        onClick = { dropDownItemClick(text) }
-    )
 }
 
 @Preview(showSystemUi = true)
 @Composable
 fun MainScreenPreview() {
     com.beeeam.feature.theme.SimpleJokeTheme {
-        MainScreen()
+        MainScreen(
+            onClickCategoryItem = {}
+        )
     }
 }
