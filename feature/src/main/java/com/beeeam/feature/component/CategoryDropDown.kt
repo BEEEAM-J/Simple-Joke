@@ -16,12 +16,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.beeeam.domain.model.Category
 import com.beeeam.feature.R
 import com.beeeam.feature.theme.black
 import com.beeeam.feature.theme.mainColor
 
 @Composable
 fun CategoryDropDown(
+    dropDownList: Category = Category(),
     dropDownState: Boolean,
     dropDownClick: () -> Unit,
     dropDownItemClick: (String) -> Unit,
@@ -53,8 +55,8 @@ fun CategoryDropDown(
         onDismissRequest = dropDownClick,
         offset = DpOffset(150.dp, 0.dp)
     ) {
-        JokeDropDownMenu("animal", dropDownItemClick)
-        JokeDropDownMenu("career", dropDownItemClick)
-        JokeDropDownMenu("history", dropDownItemClick)
+        dropDownList.category.forEach { category ->
+            JokeDropDownMenu(category, dropDownItemClick)
+        }
     }
 }

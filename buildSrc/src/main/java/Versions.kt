@@ -5,6 +5,7 @@ object Versions {
     const val APP_COMPAT = "1.6.1"
     const val CORE_KTX = "1.9.0"
     const val LIFECYCLE_RUNTIME = "2.7.0"
+    const val LIFECYCLE_RUNTIME_COMPOSE = "2.6.0-alpha01"
 
     const val ACTIVITY_COMPOSE = "1.9.0"
     const val COMPOSE_BOM = "2023.03.00"

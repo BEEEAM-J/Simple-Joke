@@ -3,6 +3,8 @@ object AndroidX {
     const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
     const val LIFECYCLE_RUNTIME =
         "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_RUNTIME}"
+    const val LIFECYCLE_RUNTIME_COMPOSE =
+        "androidx.lifecycle:lifecycle-runtime-compose:${Versions.LIFECYCLE_RUNTIME_COMPOSE}"
 
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.ACTIVITY_COMPOSE}"
     const val COMPOSE_BOM = "androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"
@@ -15,6 +17,7 @@ object AndroidX {
     const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest"
     const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}"
     const val HILT_NAVIGATION = "androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION}"
+
 
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
     const val LIFECYCLE_VIEWMODEL_KTX =

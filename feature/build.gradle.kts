@@ -48,6 +48,7 @@ dependencies {
     implementation(AndroidX.APP_COMPAT)
     implementation(AndroidX.CORE_KTX)
     implementation(AndroidX.LIFECYCLE_RUNTIME)
+    implementation(AndroidX.LIFECYCLE_RUNTIME_COMPOSE)
 
     implementation(AndroidX.ACTIVITY_COMPOSE)
     implementation(AndroidX.COMPOSE_BOM)
