@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.beeeam.feature.component.CategoryDropDown
+import com.beeeam.feature.component.SimpleJokeToast
+import com.beeeam.feature.extension.collectWithLifecycle
 import com.beeeam.feature.theme.black
 import com.beeeam.feature.theme.mainColor
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,13 +55,18 @@ fun MainRoute(
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.getCategory()
+    viewModel.sideEffect.collectWithLifecycle { sideEffect ->
+        when(sideEffect) {
+            is MainSideEffect.ShowJokeLoaded -> viewModel.onShowToast("Joke Loaded!!")
+        }
     }
+
+    LaunchedEffect(key1 = Unit) { viewModel.getCategory() }
 
     MainScreen(
         uiState = uiState,
         onClickDropDown = viewModel::showCategoryDropDown,
+        onDismissDropDown = viewModel::hideCategoryDropDown,
         onClickCategoryItem = viewModel::getJoke
     )
 }
@@ -68,6 +75,7 @@ fun MainRoute(
 fun MainScreen(
     uiState: MainState = MainState(),
     onClickDropDown: () -> Unit,
+    onDismissDropDown: () -> Unit,
     onClickCategoryItem: (String) -> Unit,
 
 ) {
@@ -88,6 +96,7 @@ fun MainScreen(
             color = mainColor,
             fontWeight = FontWeight.ExtraBold,
             fontSize = 30.sp,
+            lineHeight = 38.sp,
             maxLines = 4,
             overflow = TextOverflow.Ellipsis,
         )
@@ -95,9 +104,15 @@ fun MainScreen(
             dropDownList = uiState.category,
             dropDownState = uiState.isDropDownExpanded,
             dropDownClick = onClickDropDown,
+            dropDownDismiss = onDismissDropDown,
             dropDownItemClick = onClickCategoryItem,
         )
     }
+
+    SimpleJokeToast(
+        msg = uiState.toastMsg,
+        visible = uiState.toastVisible,
+    )
 }
 
 @Preview(showSystemUi = true)
@@ -106,6 +121,7 @@ fun MainScreenPreview() {
     com.beeeam.feature.theme.SimpleJokeTheme {
         MainScreen(
             onClickDropDown = {},
+            onDismissDropDown = {},
             onClickCategoryItem = {}
         )
     }

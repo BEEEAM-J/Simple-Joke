@@ -21,7 +21,7 @@ abstract class BaseViewModel<UI_STATE: UiState, SIDE_EFFECT: SideEffect>(
     private val _sideEffect: Channel<SIDE_EFFECT> = Channel()
     val sideEffect = _sideEffect.receiveAsFlow()
 
-    protected val currentState: UI_STATE
+    private val currentState: UI_STATE
         get() = _uiState.value
 
     // 상태 변경하기 위한 intent 함수

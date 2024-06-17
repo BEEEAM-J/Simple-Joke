@@ -7,7 +7,11 @@ import com.beeeam.feature.base.UiState
 data class MainState(
     val category: Category = Category(),
     val joke: String = "Simple Joke!",
+    val toastMsg: String = "",
+    val toastVisible: Boolean = false,
     val isDropDownExpanded: Boolean = false,
 ): UiState
 
-sealed class MainSideEffect: SideEffect
+sealed interface MainSideEffect: SideEffect {
+    object ShowJokeLoaded: MainSideEffect
+}
