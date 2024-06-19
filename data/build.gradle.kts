@@ -1,19 +1,18 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.hilt.android)
 
     kotlin("android")
     kotlin("kapt")
 }
 
-
 android {
     namespace = "com.beeeam.data"
-    compileSdk = Configuration.COMPILE_SDK
+    compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {
-        minSdk = Configuration.MIN_SDK
+        minSdk = libs.versions.min.sdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -39,21 +38,22 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(AndroidX.APP_COMPAT)
-    implementation(AndroidX.CORE_KTX)
-    implementation(Google.MATERIAL)
-    testImplementation(AndroidX.JUNIT)
-    androidTestImplementation(AndroidX.EXT_JUNIT)
-    androidTestImplementation(AndroidX.ESPRESSO_CORE)
 
-    implementation(Google.HILT_ANDROID)
-    kapt(Google.HILT_ANDROID_COMPILER)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(SquareUp.RETROFIT2)
-    implementation(SquareUp.RETROFIT2_CONVERTER_GSON)
-    implementation(SquareUp.OKHTTP3)
-    implementation(SquareUp.OKHTTP3_LOGGING)
-    implementation(SquareUp.OKHTTP3_BOM)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-    implementation(KotlinX.KOTLINX_COROUTINE)
+    implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logging)
+    implementation(libs.okhttp3.bom)
+
+    implementation(libs.kotlinx.coroutine)
 }

@@ -1,7 +1,7 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt.android)
 
     kotlin("android")
     kotlin("kapt")
@@ -9,14 +9,14 @@ plugins {
 
 android {
     namespace = "com.beeeam.simplejoke"
-    compileSdk = Configuration.COMPILE_SDK
+    compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.beeeam.simplejoke"
-        minSdk = Configuration.MIN_SDK
-        targetSdk = Configuration.TARGET_SDK
-        versionCode = Configuration.VERSION_CODE
-        versionName = Configuration.VERSION_NAME
+        minSdk = libs.versions.min.sdk.get().toInt()
+        targetSdk = libs.versions.target.sdk.get().toInt()
+        versionCode = libs.versions.version.code.get().toInt()
+        versionName = libs.versions.version.name.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -52,18 +52,18 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":feature"))
 
-    implementation(AndroidX.CORE_KTX)
-    implementation(AndroidX.LIFECYCLE_RUNTIME)
-    testImplementation(AndroidX.JUNIT)
-    androidTestImplementation(AndroidX.EXT_JUNIT)
-    androidTestImplementation(AndroidX.ESPRESSO_CORE)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(Google.HILT_ANDROID)
-    kapt(Google.HILT_ANDROID_COMPILER)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-    implementation(SquareUp.RETROFIT2)
-    implementation(SquareUp.RETROFIT2_CONVERTER_GSON)
-    implementation(SquareUp.OKHTTP3)
-    implementation(SquareUp.OKHTTP3_LOGGING)
-    implementation(SquareUp.OKHTTP3_BOM)
+    implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logging)
+    implementation(libs.okhttp3.bom)
 }

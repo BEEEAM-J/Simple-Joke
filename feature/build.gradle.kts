@@ -1,7 +1,7 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.hilt.android)
 
     kotlin("android")
     kotlin("kapt")
@@ -9,10 +9,10 @@ plugins {
 
 android {
     namespace = "com.beeeam.feature"
-    compileSdk = Configuration.COMPILE_SDK
+    compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {
-        minSdk = Configuration.MIN_SDK
+        minSdk = libs.versions.min.sdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -45,33 +45,33 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation(AndroidX.APP_COMPAT)
-    implementation(AndroidX.CORE_KTX)
-    implementation(AndroidX.LIFECYCLE_RUNTIME)
-    implementation(AndroidX.LIFECYCLE_RUNTIME_COMPOSE)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
-    implementation(AndroidX.ACTIVITY_COMPOSE)
-    implementation(AndroidX.COMPOSE_BOM)
-    implementation(AndroidX.COMPOSE_UI)
-    implementation(AndroidX.COMPOSE_UI_GRAPHICS)
-    implementation(AndroidX.COMPOSE_PREVIEW)
-    implementation(AndroidX.COMPOSE_MATERIAL)
-    implementation(AndroidX.NAVIGATION_COMPOSE)
-    implementation(AndroidX.HILT_NAVIGATION)
+    implementation(libs.activity.compose)
+    implementation(libs.compose.bom)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.preview)
+    implementation(libs.compose.material)
+    implementation(libs.navigation.compose)
+    implementation(libs.hilt.navigation)
 
-    testImplementation(AndroidX.JUNIT)
-    androidTestImplementation(AndroidX.EXT_JUNIT)
-    androidTestImplementation(AndroidX.ESPRESSO_CORE)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-    androidTestImplementation(platform(AndroidX.COMPOSE_BOM))
-    androidTestImplementation(AndroidX.COMPOSE_UI_JUNIT)
-    debugImplementation(AndroidX.COMPOSE_UI_TOOLING)
-    debugImplementation(AndroidX.COMPOSE_UI_TEST_MANIFEST)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.junit)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 
-    implementation(Google.HILT_ANDROID)
-    kapt(Google.HILT_ANDROID_COMPILER)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-    implementation(Google.MATERIAL)
+    implementation(libs.material)
 
-    implementation(KotlinX.KOTLINX_COROUTINE)
+    implementation(libs.kotlinx.coroutine)
 }

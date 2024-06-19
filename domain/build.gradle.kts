@@ -1,6 +1,6 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
+    alias(libs.plugins.kotlin.jvm)
 }
 
 java {
@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    implementation(KotlinX.KOTLINX_COROUTINE)
+    implementation(libs.kotlinx.coroutine)
 }
