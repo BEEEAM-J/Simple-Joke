@@ -49,11 +49,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    implementation(libs.retrofit2)
-    implementation(libs.retrofit2.converter.gson)
-    implementation(libs.okhttp3)
-    implementation(libs.okhttp3.logging)
-    implementation(libs.okhttp3.bom)
+    implementation(libs.bundles.network)
 
     implementation(libs.kotlinx.coroutine)
 }

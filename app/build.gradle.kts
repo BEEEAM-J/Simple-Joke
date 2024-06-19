@@ -53,7 +53,7 @@ dependencies {
     implementation(project(":feature"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.bundles.androidx.lifecycle)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.ext.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,9 +61,5 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    implementation(libs.retrofit2)
-    implementation(libs.retrofit2.converter.gson)
-    implementation(libs.okhttp3)
-    implementation(libs.okhttp3.logging)
-    implementation(libs.okhttp3.bom)
+    implementation(libs.bundles.network)
 }

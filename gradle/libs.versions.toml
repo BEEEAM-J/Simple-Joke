@@ -78,4 +78,6 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [bundles]
-
+compose = [ "activity-compose", "compose-bom", "compose-ui", "compose-ui-graphics", "compose-ui-preview", "compose-material", "navigation-compose", "hilt-navigation" ]
+androidx-lifecycle = [ "androidx-lifecycle-runtime-ktx", "androidx-lifecycle-runtime-compose" ]
+network = [ "retrofit2", "retrofit2-converter-gson", "okhttp3-bom", "okhttp3", "okhttp3-logging" ]

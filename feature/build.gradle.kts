@@ -47,17 +47,9 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.bundles.androidx.lifecycle)
 
-    implementation(libs.activity.compose)
-    implementation(libs.compose.bom)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.preview)
-    implementation(libs.compose.material)
-    implementation(libs.navigation.compose)
-    implementation(libs.hilt.navigation)
+    implementation(libs.bundles.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.ext.junit)
