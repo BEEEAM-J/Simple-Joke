@@ -1,7 +1,6 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.simplejoke.android.application)
-    alias(libs.plugins.simplejoke.android.application.compose)
     alias(libs.plugins.simplejoke.android.hilt)
 }
 

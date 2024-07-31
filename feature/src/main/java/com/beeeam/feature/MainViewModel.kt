@@ -44,6 +44,8 @@ class MainViewModel @Inject constructor(
 
     private fun updateJokeValue(value: String) = intent { copy(joke = value) }
 
+    fun updateJokeSearchValue(value: String) = intent { copy(jokeSearchValue = value) }
+
     fun showCategoryDropDown() = intent { copy(isDropDownExpanded = true) }
     fun hideCategoryDropDown() = intent { copy(isDropDownExpanded = false) }
 

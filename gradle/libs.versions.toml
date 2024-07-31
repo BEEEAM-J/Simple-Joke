@@ -72,7 +72,6 @@ kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref 
 
 [plugins]
 simplejoke-android-application = { id = "simplejoke.android.application", version = "unspecified" }
-simplejoke-android-application-compose = { id = "simplejoke.android.application.compose", version = "unspecified" }
 simplejoke-android-library = { id = "simplejoke.android.library", version = "unspecified" }
 simplejoke-android-library-compose = { id = "simplejoke.android.library.compose", version = "unspecified" }
 simplejoke-android-hilt = { id = "simplejoke.android.hilt", version = "unspecified" }

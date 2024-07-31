@@ -16,7 +16,6 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = Const.targetSdk
             }
         }
     }

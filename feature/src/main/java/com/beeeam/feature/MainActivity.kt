@@ -26,8 +26,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.beeeam.feature.component.CategoryDropDown
+import com.beeeam.feature.component.JokeSearchBar
 import com.beeeam.feature.component.SimpleJokeToast
 import com.beeeam.feature.extension.collectWithLifecycle
+import com.beeeam.feature.theme.SimpleJokeTheme
 import com.beeeam.feature.theme.black
 import com.beeeam.feature.theme.mainColor
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +39,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            com.beeeam.feature.theme.SimpleJokeTheme {
+            SimpleJokeTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -67,7 +69,8 @@ fun MainRoute(
         uiState = uiState,
         onClickDropDown = viewModel::showCategoryDropDown,
         onDismissDropDown = viewModel::hideCategoryDropDown,
-        onClickCategoryItem = viewModel::getJoke
+        onClickCategoryItem = viewModel::getJoke,
+        onSearchFieldChanged = viewModel::updateJokeSearchValue,
     )
 }
 
@@ -77,6 +80,7 @@ fun MainScreen(
     onClickDropDown: () -> Unit,
     onDismissDropDown: () -> Unit,
     onClickCategoryItem: (String) -> Unit,
+    onSearchFieldChanged: (String) -> Unit,
 
 ) {
     Column(
@@ -86,6 +90,11 @@ fun MainScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(30.dp))
+        JokeSearchBar(
+            value = uiState.jokeSearchValue,
+            onValueChanged = onSearchFieldChanged,
+            onEnterClicked = {}
+        )
         Image(
             modifier = Modifier.padding(42.dp),
             painter = painterResource(id = R.drawable.homer_simpson),
@@ -118,11 +127,12 @@ fun MainScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun MainScreenPreview() {
-    com.beeeam.feature.theme.SimpleJokeTheme {
+    SimpleJokeTheme {
         MainScreen(
             onClickDropDown = {},
             onDismissDropDown = {},
-            onClickCategoryItem = {}
+            onClickCategoryItem = {},
+            onSearchFieldChanged = {},
         )
     }
 }
