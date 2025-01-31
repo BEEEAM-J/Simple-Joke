@@ -8,7 +8,7 @@ import com.beeeam.domain.repository.CategoryRepository
 import javax.inject.Inject
 
 class CategoryRepositoryImpl @Inject constructor(
-    val api: SimpleJokeApi
+    private val api: SimpleJokeApi
 ): CategoryRepository {
     override suspend fun loadCategory(): Result<Category> {
         return SimpleJokeApiCall {

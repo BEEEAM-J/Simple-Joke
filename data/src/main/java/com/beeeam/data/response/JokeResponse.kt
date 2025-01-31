@@ -4,7 +4,7 @@ import com.beeeam.domain.model.Joke
 import com.google.gson.annotations.SerializedName
 
 data class JokeResponse(
-    val categories: List<Any>,
+    val categories: List<String>,
     @SerializedName("created_at") val createdDate: String,
     @SerializedName("icon_url") val iconUrl: String,
     val id: String,

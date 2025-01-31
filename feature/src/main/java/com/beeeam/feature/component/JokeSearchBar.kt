@@ -1,6 +1,7 @@
 package com.beeeam.feature.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,10 +16,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -31,15 +41,31 @@ import com.beeeam.feature.theme.mainColor
 
 @Composable
 fun JokeSearchBar(
+    modifier: Modifier,
     value: String = "",
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
-    onValueChanged: (String) -> Unit = {},
-    onEnterClicked: () -> Unit,
+    onClickSearchBar: () -> Unit,
+    onValueChanged: (String) -> Unit,
+    onEnterClicked: (String) -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+    var isFocused by remember { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = isFocused) {
+        if(isFocused) {
+            onClickSearchBar()
+        }
+    }
+
     BasicTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .focusRequester(focusRequester)         // 포커스 요청자 연결
+            .onFocusChanged { focusState ->
+                isFocused = focusState.isFocused    // 포커스 상태 업데이트
+            },
         value = value,
         onValueChange = onValueChanged,
-        modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         textStyle = LocalTextStyle.current.copy(color = mainColor),
         cursorBrush = SolidColor(Color.White),
@@ -47,7 +73,7 @@ fun JokeSearchBar(
         keyboardActions = KeyboardActions(
             onSearch = {
                 if (!value.isNullOrEmpty()) {
-                    onEnterClicked()
+                    onEnterClicked(value)
                     keyboardController?.hide()
                 }
             }
@@ -65,8 +91,12 @@ fun JokeSearchBar(
                     contentDescription = "",
                     tint = mainColor,
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Box(modifier = Modifier.weight(1f)) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 8.dp)
+                )
+                {
                     innerTextField()
                     if (value.isEmpty()) {
                         Text(
@@ -76,7 +106,6 @@ fun JokeSearchBar(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.width(8.dp))
             }
         },
     )
@@ -85,5 +114,10 @@ fun JokeSearchBar(
 @Preview(apiLevel = 33)
 @Composable
 fun SearchBarPreview() {
-//    JokeSearchBar()
+//    JokeSearchBar(
+//        modifier = Modifier,
+//        value = "",
+//        onValueChanged = {},
+//        onEnterClicked = {},
+//    )
 }

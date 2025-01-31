@@ -1,10 +1,11 @@
-package com.beeeam.feature
+package com.beeeam.feature.joke
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.beeeam.domain.model.Category
 import com.beeeam.domain.usecase.GetCategoryUseCase
 import com.beeeam.domain.usecase.GetJokeUseCase
+import com.beeeam.domain.usecase.SearchUseCase
 import com.beeeam.feature.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -12,11 +13,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class JokeViewModel @Inject constructor(
     private val getCategoryUseCase: GetCategoryUseCase,
     private val getJokeUseCase: GetJokeUseCase,
-): BaseViewModel<MainState, MainSideEffect>(
-    MainState()
+): BaseViewModel<JokeState, JokeSideEffect>(
+    JokeState()
 ) {
     fun getCategory() = viewModelScope.launch {
         getCategoryUseCase()
@@ -44,8 +45,6 @@ class MainViewModel @Inject constructor(
 
     private fun updateJokeValue(value: String) = intent { copy(joke = value) }
 
-    fun updateJokeSearchValue(value: String) = intent { copy(jokeSearchValue = value) }
-
     fun showCategoryDropDown() = intent { copy(isDropDownExpanded = true) }
     fun hideCategoryDropDown() = intent { copy(isDropDownExpanded = false) }
 
@@ -55,5 +54,6 @@ class MainViewModel @Inject constructor(
         intent { copy(toastMsg = msg, toastVisible = false) }
     }
 
-    private fun showJokeLoadedToast() = postSideEffect(MainSideEffect.ShowJokeLoaded)
+    fun navigateToSearch() = postSideEffect(JokeSideEffect.NavigateToSearch)
+    private fun showJokeLoadedToast() = postSideEffect(JokeSideEffect.ShowJokeLoaded)
 }

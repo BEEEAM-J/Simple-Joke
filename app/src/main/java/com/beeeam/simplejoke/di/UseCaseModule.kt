@@ -2,8 +2,10 @@ package com.beeeam.gocafein.di
 
 import com.beeeam.domain.repository.CategoryRepository
 import com.beeeam.domain.repository.JokeRepository
+import com.beeeam.domain.repository.SearchRepository
 import com.beeeam.domain.usecase.GetCategoryUseCase
 import com.beeeam.domain.usecase.GetJokeUseCase
+import com.beeeam.domain.usecase.SearchUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +25,11 @@ class UseCaseModule {
     @Provides
     fun provideGetJoke(repo: JokeRepository): GetJokeUseCase {
         return GetJokeUseCase(repo)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearch(repo: SearchRepository): SearchUseCase {
+        return SearchUseCase(repo)
     }
 }
